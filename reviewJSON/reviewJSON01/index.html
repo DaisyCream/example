@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+</head>
+<body>
+    <table cellpadding="5px" cellspacing="5px">
+        <tr>
+            <th>NAME</th>
+            <th>TELEPHONE</th>
+        </tr>
+        <tr>
+            <td></td>
+            <td></td>
+        </tr>
+        <tr>
+            <td></td>
+            <td></td>
+        </tr>
+        <tr>
+            <td></td>
+            <td></td>
+        </tr>
+        <tr>
+            <td></td>
+            <td></td>
+        </tr>
+    </table>
+    <input type="button" value="click" id="btn">
+</body>
+</html>
+<script type="text/javascript">
+var tableRow = document.getElementsByTagName('tr');
+var btn = document.getElementById('btn');
+
+btn.onclick = function() {
+    var xhr = new XMLHttpRequest();
+    xhr.onreadystatechange = function () {
+        if (xhr.status == 200 && xhr.readyState == 4) {
+            var presonTxt = xhr.responseText;
+            console.log(presonTxt);
+            var obj = eval("(" + presonTxt + ")");
+            for (var i = 1; i < tableRow.length; i++) {
+                tableRow[i].getElementsByTagName('td')[0].innerHTML = obj.preson[i-1].name;
+                tableRow[i].getElementsByTagName('td')[1].innerHTML = obj.preson[i-1].telephone;
+            }
+        }
+    };
+    xhr.open("GET","date.txt",true);
+    xhr.send();
+}
+
+
+
+</script>
