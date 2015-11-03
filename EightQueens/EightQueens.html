@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+    <link href="EightQueens.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+    <div id="screen"></div>
+</body>
+</html>
+<script type="text/javascript">
+    /**********************************get Array******************************/
+    var screen = document.getElementById('screen');
+    var count = 8;
+    screen.innerHTML = '';
+    var print = '';
+    var obj = new Array();
+    function initStr(str){
+        for(var i=0;i<count;i++){
+            str[i] = new Array();
+            for(var j=0;j<count;j++){
+                str[i][j] = 0;
+                console.log(str[i][j]);
+            }
+        }
+    }
+
+    function printStr(str){
+        for(var i=0;i<str.length;i++){
+            print+=str[i].toString()+',';
+            console.log(print);
+            print+='<br/>';
+        }
+        screen.innerHTML = print;
+    }
+
+    function isRow(x,y){
+        for(var i=x;i>=0;i--){
+            if(obj[i][y]==1){
+                return false;
+            }
+        }
+        return true;
+    }
+
+    function isLeftTop(x,y){
+        for(var i=x;i>=0;i--){
+            x--;
+            y--;
+            if(y<0){
+                return true;
+            }
+            if(obj[x][y]==1){
+                return false;
+            }
+        }
+        return true;
+    }
+
+    function isLeftButton(x,y){
+        for(var i=x;i>=0;i--){
+            x--;
+            y++;
+            if(y==count){
+                return true;
+            }
+            if(obj[x][y]==1){
+                return false;
+            }
+        }
+        return true;
+    }
+
+
+    function isFit(x,y){
+        if(isRow(x,y)&&isLeftButton(x,y)&&isLeftTop(x,y)){
+            return true;
+        }
+        return false;
+    }
+
+    function putPoint(x,y){
+        if(x==count){
+            return;
+        }
+        for(var i=0;i<count;i++){
+            if(isFit(x,i)){
+                obj[x][i]=1;
+                if(putPoint(x+1,0)){
+                    return true;
+                }
+                else{
+                    obj[x][i]=0;
+                }
+            }
+        }
+        return false;
+
+    }
+
+
+
+</script>
